@@ -1,0 +1,27 @@
+{{#extends 'base'}}
+
+{{#block "content"}}
+
+{{#if itemNameInvalid}}
+<div class="alert alert-danger">
+    Your item name is invalid
+</div>
+{{/if}}
+
+{{#if emailInvalid}}
+<div class="alert alert-danger">
+    Your email is invalid
+</div>
+{{/if}}
+
+{{#if noError}}
+<div class="alert alert-success">
+    Your form has been processed successfully.
+</div>
+{{/if}}
+
+
+
+{{/block}}
+
+{{/extends}}

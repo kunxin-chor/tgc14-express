@@ -174,7 +174,56 @@ app.post('/fruits', function(req,res){
     res.render('fruit-cost',{
         'totalCost': total
     })
+})
 
+app.get('/report-lost', function(req,res){
+    res.render('forms/report')
+})
+
+// app.post('/report-lost', function(req,res){
+//     let itemName = req.body.itemName;
+//     let email = req.body.email;
+
+//     let itemNameInvalid = false;
+//     let emailInvalid = false;
+
+//     if (itemName.length < 3 || itemName.length > 200) {
+//         itemNameInvalid = true;
+//     }
+ 
+//     if (email.includes('.') == false || email.includes('@') == false) {
+//         emailInvalid = true;
+//     }
+
+//     let noError = itemNameInvalid == false && emailInvalid == false;
+
+//     res.render('report-done',{
+//         'itemNameInvalid': itemNameInvalid,
+//         'emailInvalid': emailInvalid,
+//         'noError': noError
+//     })
+
+// })
+
+app.post('/report-lost', function(req, res){
+    let errors = [];
+    if (req.body.itemName.length < 3 || req.body.itemName.length > 200) {
+        errors.push("The item name is too short or too long");
+    }
+    if (! req.body.email.includes('.')) {
+        errors.push("Your email address is missing a .")
+    }
+    if (! req.body.email.includes('@')) {
+        errors.push("Your email address is missing an @");
+    }
+    // check if errors array is empty
+    if (errors.length == 0) {
+        console.log("No errors found. Proceed to save to db or some other process");
+    }
+
+    res.render('report-done2', {
+        'errors': errors
+    })
 })
 
 /* 3. Start server */

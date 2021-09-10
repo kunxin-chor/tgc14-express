@@ -1,0 +1,21 @@
+{{#extends 'base'}}
+
+{{#block 'content'}}
+{{#if errors}}
+<div class="alert alert-danger">
+    <ul>
+    {{#each errors}}
+        <li>{{this}}</li>
+    {{/each}}
+    </ul>
+</div>
+{{else}}
+<div class="alert alert-success">
+    Your form has been accepted
+</div>
+
+{{/if}}
+
+{{/block}}
+
+{{/extends}}
