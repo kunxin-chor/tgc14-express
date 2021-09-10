@@ -1,0 +1,18 @@
+{{#extends 'base'}}
+
+{{#block 'content'}}
+<h1>Creating a New Pet</h1>
+<form method="POST">
+    <div>
+        <label>Pet Name</label>
+        <input type="text" class="form-control" name="petName"/>
+    </div> 
+    <div>
+        <label>Category</label>
+        <input type="text" class="form-control" name="category"/>
+    </div>
+    <input type="submit" value="Create New Pet" class="btn btn-primary my-3"/>
+</form>
+{{/block}}
+
+{{/extends}}
