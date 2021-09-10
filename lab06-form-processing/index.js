@@ -96,6 +96,86 @@ app.post('/bmi', function(req,res){
     })
 })
 
+app.get('/fruits', function(req, res){
+    res.render('fruit-form')
+})
+
+app.post('/fruits', function(req,res){
+    let selectedFruits = req.body.items;
+    if (!selectedFruits) {
+        // if selectedFruits is undefined, then define it to be an 
+        // empty array
+        selectedFruits = [];
+    }
+    // selectedFruits is either a string or an array
+    if (Array.isArray(selectedFruits) == false) {
+        // this means selectedFruits is a string
+        // therefore we convert it to be an array
+        // with its only element being the string
+        selectedFruits = [ selectedFruits ];
+        // if selectedFruits contains 'apple'
+        // => selectedFruits = [ "apples" ]
+    }
+
+    // after those two if statements, selectedFruits
+    // will be one of the following cases:
+    // empty array, array with one string or array 
+    // with many strings
+
+    // let total = 0;
+    // for (let f of selectedFruits) {
+    //     if (f=="apple") {
+    //         total += 3;
+    //     }
+    //     if (f=="durian") {
+    //         total += 15;
+    //     }
+    //     if (f=="orange") {
+    //         total += 6;
+    //     }
+    //     if (f=="banana") {
+    //         total += 4;
+    //     }
+    // }
+
+    let costTable = {
+        'apple': 3,
+        'durian': 15,
+        'orange': 6,
+        'banana': 4
+    }
+
+    // for (let f of selectedFruits) {
+    //     // let say my array is ['apple', 'bananas']
+    //     // then in the first round of the loop,
+    //     // f will be 'apple'
+    //     //
+    //     // let fruitCost = costTable[f]
+    //     // => let fruitCost = costTable['apple']
+    //     // => let fruitCost = 3
+    //     //
+    //     // on the second round of the loop,
+    //     // f will be 'bananas
+    //     //
+    //     // let fruitCost = costTable[f]
+    //     // => let fruitCost = costTable['bananas']
+    //     // => let fruitCost = 4
+    //     let fruitCost = costTable[f]; // not the same as costTable.f
+
+    //     total += fruitCost;
+    // }
+
+    let reducer = function(resultSoFar, currentFruit) {
+        let fruitCost = costTable[currentFruit];
+        return resultSoFar + fruitCost;
+    }
+    let total = selectedFruits.reduce(reducer, 0);
+
+    res.render('fruit-cost',{
+        'totalCost': total
+    })
+
+})
 
 /* 3. Start server */
 app.listen(3000, function(){
