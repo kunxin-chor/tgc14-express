@@ -98,6 +98,43 @@ app.post('/pet/delete/:petid', async function(req,res){
     res.redirect('/')
 })
 
+app.get('/pet/update/:petid', async function(req,res){
+    let response = await axios.get(API_BASE_URL + "pet/" + req.params.petid);
+    let pet = response.data;
+    res.render('update_form',{
+        'pet': pet
+    })
+})
+
+app.post('/pet/update/:petid', async function(req,res){
+    let petName = req.body.petName;
+    let category = req.body.category;
+
+    let data = {
+        'id': parseInt(req.params.petid),
+        'category': {
+            'id': Math.floor(Math.random() * 99999 + 10000),
+            'name': category
+        },
+        'name': petName,
+        'status': 'available',
+        "photoUrls": [
+            "string"
+          ],
+          "tags": [
+            {
+              "id": 0,
+              "name": "string"
+            }
+          ],
+    }
+
+    console.log(data);
+
+    let response = await axios.put(API_BASE_URL + 'pet/' + req.params.petid, data);
+    res.redirect('/')
+})
+
 app.listen(3000, function () {
     console.log("Server started")
 })
