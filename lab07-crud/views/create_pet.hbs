@@ -13,7 +13,7 @@
     </div>
 {{/if}}
 
-<form method="POST">
+<form method="POST" id="create-pet">
     <div>
         <label>Pet Name</label>
         <input type="text" class="form-control" name="petName"/>
@@ -25,5 +25,10 @@
     <input type="submit" value="Create New Pet" class="btn btn-primary my-3"/>
 </form>
 {{/block}}
+
+{{#block js}}
+<script src="/validate_create_pet.js"></script>
+{{/block}}
+
 
 {{/extends}}
