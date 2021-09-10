@@ -79,6 +79,25 @@ app.post('/pet/create', async function (req, res) {
 
 })
 
+app.get('/pet/delete/:petid', async function(req,res){
+   
+    try {
+        let response = await axios.get(API_BASE_URL + "pet/" + req.params.petid);
+        let pet = response.data;
+        res.render('confirm_delete',{
+            'pet': pet
+        })
+    } catch (e) {
+        res.send(e);
+    }
+
+})
+
+app.post('/pet/delete/:petid', async function(req,res){
+    await axios.delete(API_BASE_URL + 'pet/' + req.params.petid);
+    res.redirect('/')
+})
+
 app.listen(3000, function () {
     console.log("Server started")
 })
